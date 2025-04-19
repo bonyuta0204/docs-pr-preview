@@ -8,8 +8,7 @@ on:
 
 jobs:
   # Build & deploy previews on PR open/update
-  build-and-deploy:
-    if: ${{ github.event.action != 'closed' }}
+  deploy-preview:
     runs-on: ubuntu-latest
 
     steps:
