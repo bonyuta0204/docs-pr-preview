@@ -1,0 +1,26 @@
+{
+  "name": "docs-pr-preview",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/bonyuta0204/docs-pr-preview#readme",
+  "bugs": {
+    "url": "https://github.com/bonyuta0204/docs-pr-preview/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/bonyuta0204/docs-pr-preview.git"
+  },
+  "license": "MIT",
+  "author": "Yuta Nakamura",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}
