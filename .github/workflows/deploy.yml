@@ -5,11 +5,13 @@ name: PR Preview for GitHub Pages
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
+  push:
+    branches:
+      - main
 
 jobs:
   # Build & deploy previews on PR open/update
-  build-and-deploy:
-    if: ${{ github.event.action != 'closed' }}
+  deploy-preview:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,3 +43,30 @@ jobs:
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: .vitepress/dist
+
+  deploy-main:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build site
+        env:
+          VITE_BASE_URL: /docs-pr-preview
+        run: pnpm run docs:build
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .vitepress/dist
